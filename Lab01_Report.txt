@@ -1,16 +1,19 @@
 ======================================================
 COE67-XXX Operating Systems - Lab 01 Report
-Name: 
-Student ID: 
+Name: chalisa naksaaing
+Student ID: 67190561
 ======================================================
 
 1. Hardware Baseline:
-- OS Version:
-- Number of CPU Cores:
-- Total RAM:
+- OS Version:Linux (Ubuntu)
+- Number of CPU Cores:2 Cores
+- Total RAM:7.76 GB
 
-2. Observation (from htop during stress test):
+2. Observation (from htop during stress test):ในช่วง CPU Stress Test สคริปต์ Python ใช้ประสิทธิภาพ CPU ไป 100% แค่เพียง 1 Core เท่านั้น เนื่องจากข้อจำกัดการทำงานแบบ Single-thread (Global Interpreter Lock - GIL) ของ Python
 [Write your answer here]
 
 3. Analysis:
 [Write your answer here]
+ในงาน Machine Learning หากมีรูปภาพ 500,000 รูป:
+  1) OS Memory Limits: ต้องรู้ขนาด RAM เพื่อวางแผนแบ่งโหลดข้อมูลเป็นชุด (Batching) หากดึงรูปทั้งหมดเข้า RAM พร้อมกันจะเกิดปัญหา Out of Memory (OOM) จนระบบค้างหรือสั่งปิดโปรแกรม
+  2) CPU Core Counts: ต้องรู้จำนวน Core เพื่อตั้งค่าการอ่านและเตรียมข้อมูลแบบขนาน (เช่น num_workers) ช่วยดึงประสิทธิภาพการประมวลผลสูงสุดตามขีดจำกัดเครื่อง
