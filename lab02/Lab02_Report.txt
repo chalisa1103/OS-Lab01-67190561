@@ -1,0 +1,11 @@
+=== Lab 2 Report: Processes, Threads, and GIL ===
+
+1. Execution Times (16 images):
+- Sequential Time: [ใส่เวลาของ runner_seq] วินาที
+- Multithreading Time: [ใส่เวลาของ runner_thread] วินาที
+- Multiprocessing Time: [ใส่เวลาของ runner_process] วินาที
+
+2. Observation & Analysis:
+- Multithreading vs Sequential: Multithreading ไม่ได้ช่วยให้เร็วขึ้นอย่างมีนัยสำคัญสำหรับงาน CPU-bound เพราะติดข้อจำกัดของ GIL (Global Interpreter Lock) ใน Python ที่ยอมให้มีเพียง Thread เดียวทำงานกับ Bytecode ได้ในเวลาเดียวกัน
+- Multiprocessing: ทำงานได้เร็วที่สุดและดึงประสิทธิภาพของ CPU มาใช้ได้เต็มที่ทุก Core เพราะเป็นการแยก OS Process ใหม่ ทำให้ก้าวข้ามข้อจำกัดของ GIL ได้
+- Zombie Process: เกิดขึ้นเมื่อ Child Process ทำงานเสร็จจบหน้าที่ไปแล้ว แต่ Parent Process ยังไม่ได้รับการจัดการล้างข้อมูลด้วย syscall wait() ทำให้ยังมีชื่อค้างใน Process Table และแสดงสถานะเป็น Z (Zombie)
