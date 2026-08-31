@@ -1,9 +1,9 @@
 === Lab 2 Report: Processes, Threads, and GIL ===
 
 1. Execution Times (16 images):
-- Sequential Time: [ใส่เวลาของ runner_seq] วินาที
-- Multithreading Time: [ใส่เวลาของ runner_thread] วินาที
-- Multiprocessing Time: [ใส่เวลาของ runner_process] วินาที
+- Sequential Time: 9.14 วินาที
+- Multithreading Time: 9.87 วินาที
+- Multiprocessing Time: 4.85 วินาที
 
 2. Observation & Analysis:
 - Multithreading vs Sequential: Multithreading ไม่ได้ช่วยให้เร็วขึ้นอย่างมีนัยสำคัญสำหรับงาน CPU-bound เพราะติดข้อจำกัดของ GIL (Global Interpreter Lock) ใน Python ที่ยอมให้มีเพียง Thread เดียวทำงานกับ Bytecode ได้ในเวลาเดียวกัน
