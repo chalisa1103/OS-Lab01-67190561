@@ -1,0 +1,42 @@
+======================================================
+COE67-222 Operating Systems - Lab 04 Report
+Name: chalisa naksaaing
+Student ID: 67190561
+======================================================
+1. The Deadlock (Phase 2):
+In the `deadlock_simulation.py` script, explain step-by-step how the "Circular Wait" condition occurred between Model A and Model B.
+Answer:
+- Model A acquired `gpu_0_lock` first and then requested `gpu_1_lock`.
+- Simultaneously, Model B acquired `gpu_1_lock` first and then requested `gpu_0_lock`.
+- Model A held GPU 0 while waiting indefinitely for GPU 1 (held by Model B).
+- Model B held GPU 1 while waiting indefinitely for GPU 0 (held by Model A).
+- This created a closed cycle of dependency (Circular Wait), where neither thread could proceed or release its resource.
+
+2. The Solution (Phase 3):
+By changing the code in `deadlock_avoidance.py` so that Model B also requests GPU 0 first, how did this specifically break the "Circular Wait" condition? 
+Answer:
+- Forcing a strict Lock Ordering (Resource Hierarchy) required all threads to acquire GPU 0 before acquiring GPU 1.
+- Because Model B must acquire GPU 0 first, it gets blocked at the very beginning if Model A already holds GPU 0.
+- Model B is prevented from holding GPU 1 while waiting for GPU 0, eliminating the circular dependency cycle completely.
+
+3. Starvation vs Deadlock (Phase 4):
+Based on the results from `starvation_sim.py`:
+- How is the final output of the Starvation script fundamentally different from the Deadlock script you ran in Phase 2?
+Answer:
+- In Deadlock, the entire system froze and made zero total progress; execution stopped completely.
+- In Starvation, the system continued running and processing tasks, but resource distribution was severely unfair—greedy threads ran thousands of times while the polite thread received very few CPU cycles.
+
+- In your own words, explain how a process scheduler could use a technique called "Aging" to help the `Polite_Model` get a fair share of CPU time.
+Answer:
+- Aging gradually increases the priority score of a process the longer it waits in the ready queue.
+- As `Polite_Model` sits waiting, its priority steadily rises until it surpasses the greedy threads, guaranteeing that the OS scheduler will grant it resource access and prevent indefinite starvation.
+
+4. Deadlock Detection & Recovery (Phase 5):
+- How did the `timeout` parameter simulate the Deadlock Detection mechanism of an Operating System?
+Answer:
+- The `timeout` parameter acts as an OS Watchdog timer. If a thread cannot acquire a lock within a specified duration (2 seconds), the system detects that the process is stalled in a potential deadlock rather than waiting forever.
+
+- When the Deadlock was detected, what exact step did Model A take to perform "Recovery" and allow the rest of the system to continue?
+Answer:
+- Model A executed resource preemption/rollback by calling `gpu_0_lock.release()`.
+- By releasing its held GPU 0 lock, Model A freed the resource for Model B, allowing Model B to complete its work and resolving the deadlock without crashing the program.
