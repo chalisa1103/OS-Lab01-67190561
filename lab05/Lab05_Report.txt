@@ -1,0 +1,23 @@
+=========================================
+COE67-222 Operating Systems Lab 05 Report
+Name: [chalisa naksaaing]
+Student ID: [67190561]
+=========================================
+
+1. Address Translation Math (Phase 3):
+Assume an OS has a PAGE_SIZE of 4096 bytes.
+If an AI model requests data at Logical Address 10000, calculate:
+- The Page Number: 2
+  Calculation: 10000 // 4096 = 2
+- The Offset: 1808
+  Calculation: 10000 % 4096 = 1808
+
+Brief Calculation Steps:
+- Page Number = Logical Address // PAGE_SIZE = 10000 // 4096 = 2
+- Offset = Logical Address % PAGE_SIZE = 10000 % 4096 = 1808
+
+2. Physical Memory Fragmentation:
+The OS stores continuous logical data across scattered/fragmented physical frames to solve External Fragmentation. As programs are opened and closed, physical RAM gets divided into non-contiguous free memory chunks. By using Paging, the OS can place contiguous logical pages into any available physical frame anywhere in RAM without requiring one large contiguous block of physical memory, avoiding system-slowing memory compaction.
+
+3. The AI Context (mmap):
+Using mmap creates Virtual Memory mappings in the process's Page Table pointing directly to the file on disk instead of copying the entire 50MB file into physical RAM (as shown in our execution where RAM usage only went from 17.14 MB to 17.16 MB). When index 25,000,000 is accessed, the CPU detects that the corresponding page is not present in physical RAM and triggers an OS Page Fault. The OS intercepts this fault, pauses the execution briefly, loads only the required 4KB page containing index 25,000,000 from disk into a RAM frame, updates the Page Table, and seamlessly resumes program execution.
